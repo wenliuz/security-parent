@@ -1,5 +1,7 @@
 package com.wenliuz.config;
 
+import com.wenliuz.core.properties.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -10,21 +12,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         //httpbasic验证 默认方式
         //http.httpBasic();
+
         //表单验证
         http.formLogin()
-                //表单页面
-                .loginPage("/login.html")
-                //表单登录请求
+                //自定义表单页面
+                //.loginPage("/login.html")
+                //自定义表单的登录请求
                 .loginProcessingUrl("/auth/login")
+                //跳转请求
+                .loginPage("/auth/require")
                 .and()
                 .authorizeRequests()
                 //忽略验证
-                .antMatchers("/login.html").permitAll()
+                .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

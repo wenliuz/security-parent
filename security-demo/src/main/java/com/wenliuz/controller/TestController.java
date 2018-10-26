@@ -1,6 +1,5 @@
 package com.wenliuz.controller;
 
-import com.wenliuz.bean.FaultCase;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @RequestMapping("/test")
-    public String test(@RequestBody FaultCase faultCase) {
-        System.out.println(faultCase.getStartTime());
-        System.out.println(faultCase);
+    public String test() {
         return "hello test";
     }
 }

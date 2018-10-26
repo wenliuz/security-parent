@@ -1,4 +1,11 @@
 #\u4E0D\u542F\u7528spring security
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
+
+server:
+  port: 8081
+
+#security:
+  #browser:
+   #loginPage: /demo-login.html
