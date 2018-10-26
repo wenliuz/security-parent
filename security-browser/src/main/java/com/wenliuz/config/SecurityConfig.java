@@ -1,5 +1,7 @@
 package com.wenliuz.config;
 
+import com.wenliuz.authentication.AuthFailHandler;
+import com.wenliuz.authentication.AuthSuccessHandler;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private AuthSuccessHandler authSuccessHandler;
+    @Autowired
+    private AuthFailHandler authFailHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
@@ -29,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/auth/login")
                 //跳转请求
                 .loginPage("/auth/require")
+                .successHandler(authSuccessHandler)
+                .failureHandler(authFailHandler)
                 .and()
                 .authorizeRequests()
                 //忽略验证
