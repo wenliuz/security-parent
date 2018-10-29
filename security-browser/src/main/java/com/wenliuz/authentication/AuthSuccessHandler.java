@@ -1,11 +1,14 @@
 package com.wenliuz.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wenliuz.core.enums.LoginType;
+import com.wenliuz.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,13 +22,16 @@ import java.io.IOException;
  * @author wenliuz
  */
 @Component
-public class AuthSuccessHandler implements AuthenticationSuccessHandler {
+public class AuthSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthSuccessHandler.class);
 
     //自动注入的处理器
     @Resource
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private SecurityProperties securityProperties;
 
     /**
      *
@@ -39,7 +45,12 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
         LOGGER.info("登录成功！");
-        response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(authentication));
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write(objectMapper.writeValueAsString(authentication));
+        } else {
+            super.onAuthenticationSuccess(request, response, authentication);
+        }
+
     }
 }

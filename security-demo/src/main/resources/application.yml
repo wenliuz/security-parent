@@ -6,6 +6,7 @@
 server:
   port: 8081
 
-#security:
-  #browser:
+security:
+  browser:
    #loginPage: /demo-login.html
+    loginType: REDIRECT
