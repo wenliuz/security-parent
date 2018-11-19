@@ -2,11 +2,13 @@ package com.wenliuz.config;
 
 import com.wenliuz.authentication.AuthFailHandler;
 import com.wenliuz.authentication.AuthSuccessHandler;
+import com.wenliuz.core.code.ValidateCodeFilter;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Created by wenliu on 2018/10/14.
@@ -27,9 +29,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //super.configure(http);
         //httpbasic验证 默认方式
         //http.httpBasic();
+        ValidateCodeFilter validateCodeFilter =  new ValidateCodeFilter();
+        validateCodeFilter.setFailureHandler(authFailHandler);
+
 
         //表单验证
-        http.formLogin()
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
                 //自定义表单页面
                 //.loginPage("/login.html")
                 //自定义表单的登录请求
@@ -41,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //忽略验证
-                .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage()).permitAll()
+                .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage(),"/code/image").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

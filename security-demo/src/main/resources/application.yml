@@ -5,8 +5,13 @@
 
 server:
   port: 8081
+  #context-path: /secure
 
-security:
-  browser:
+#security:
+  #browser:
    #loginPage: /demo-login.html
-    loginType: REDIRECT
+    #loginType: REDIRECT
+
+spring:
+  session:
+    store-type: none
