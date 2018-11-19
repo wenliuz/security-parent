@@ -1,7 +1,6 @@
 package com.wenliuz.core.code;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
@@ -35,6 +34,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {//保证过滤器�
                 validate(new ServletWebRequest(request));
             } catch (ValidateCodeException e) {
                 failureHandler.onAuthenticationFailure(request,response,e);
+                return;
             }
         }
         filterChain.doFilter(request,response);
