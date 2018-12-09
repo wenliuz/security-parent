@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //http.httpBasic();
         ValidateCodeFilter validateCodeFilter =  new ValidateCodeFilter();
         validateCodeFilter.setFailureHandler(authFailHandler);
+        validateCodeFilter.setSecurityProperties(securityProperties);
+        validateCodeFilter.afterPropertiesSet();//设置属性
 
 
         //表单验证

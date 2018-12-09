@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @author wenliuz
  */
 @Configuration
-@EnableConfigurationProperties(SecurityProperties.class)
+@EnableConfigurationProperties({SecurityProperties.class})
 public class SecurityCoreConfig {
 }

@@ -4,13 +4,18 @@
 #    enabled: false
 
 server:
-  port: 8081
+  port: 9527
   #context-path: /secure
 
-#security:
+security:
   #browser:
    #loginPage: /demo-login.html
     #loginType: REDIRECT
+  code:
+    image:
+      length: 5
+      width: 100
+      url: /test,/user,/user/*
 
 spring:
   session:
