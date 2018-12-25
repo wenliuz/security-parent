@@ -2,13 +2,12 @@ package com.wenliuz.code;
 
 import com.wenliuz.core.code.ImageCode;
 import com.wenliuz.core.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 自定义验证码生成
  */
-@Component("imageCodeGenerator")
+//@Component("imageCodeGenerator")
 public class DemoCode implements ValidateCodeGenerator {
     /**
      * 图形验证码生成器

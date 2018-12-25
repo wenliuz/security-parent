@@ -13,10 +13,17 @@ security:
     #loginType: REDIRECT
   code:
     image:
-      length: 5
-      width: 100
+      length: 4
+      width: 67
       url: /test,/user,/user/*
 
 spring:
   session:
     store-type: none
+
+  #数据库连接
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/security?useUnicode=yes&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=Asia/Shanghai
+    username: root
+    password: root

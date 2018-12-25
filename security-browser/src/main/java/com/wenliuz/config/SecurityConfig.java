@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * Created by wenliu on 2018/10/14.
@@ -23,6 +25,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthSuccessHandler authSuccessHandler;
     @Autowired
     private AuthFailHandler authFailHandler;
+    @Autowired
+    private PersistentTokenRepository persistentTokenRepository;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
         //表单验证
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-                .formLogin()
+        http
+            .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+            .formLogin()
                 //自定义表单页面
                 //.loginPage("/login.html")
                 //自定义表单的登录请求
@@ -47,13 +54,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authSuccessHandler)
                 .failureHandler(authFailHandler)
                 .and()
-                .authorizeRequests()
-                //忽略验证
+            .rememberMe()
+                .tokenRepository(persistentTokenRepository)
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                .userDetailsService(userDetailsService)
+                .and()
+            .authorizeRequests()
+            //忽略验证
                 .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage(),"/code/image").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .csrf()
+            .csrf()
                 .disable();
     }
 }
