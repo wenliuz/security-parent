@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(authSuccessHandler)
                 .failureHandler(authFailHandler)
                 .and()
+                //记住我
             .rememberMe()
                 .tokenRepository(persistentTokenRepository)
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
@@ -61,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .authorizeRequests()
             //忽略验证
-                .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage(),"/code/image").permitAll()
+                .antMatchers("/auth/require",securityProperties.getBrowser().getLoginPage(),"/code/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

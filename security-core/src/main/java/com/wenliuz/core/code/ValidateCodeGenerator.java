@@ -1,5 +1,7 @@
 package com.wenliuz.core.code;
 
+import com.sun.org.apache.bcel.internal.classfile.Code;
+import org.apache.commons.lang.Validate;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -9,9 +11,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 public interface ValidateCodeGenerator {
 
     /**
-     * 图形验证码生成器
+     * 验证码生成器
      * @param request
      * @return
      */
-    ImageCode generate(ServletWebRequest request);
+    ValidateCode generate(ServletWebRequest request);
 }

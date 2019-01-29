@@ -4,17 +4,15 @@ package com.wenliuz.core.properties;
  * 图形验证码属性
  * @author wenliuz
  */
-public class ImageCodeProperties {
+public class ImageCodeProperties extends SmsCodeProperties {
     //默认配置
     private int width = 67;
     private int height = 23;
-    private int length = 4;
-    private int expireIn = 60;
-    /**
-     * 需要验证码的请求路径
-     */
-    private String url;
 
+    public ImageCodeProperties() {
+        //设置图形验证码默认长度
+        setLength(4);
+    }
 
     public int getWidth() {
         return width;
@@ -30,29 +28,5 @@ public class ImageCodeProperties {
 
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public int getExpireIn() {
-        return expireIn;
-    }
-
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

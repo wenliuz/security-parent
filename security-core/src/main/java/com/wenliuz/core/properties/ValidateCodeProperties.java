@@ -1,17 +1,21 @@
 package com.wenliuz.core.properties;
 
+import lombok.Data;
+
 /**
  * 验证码属性
  */
+@Data
 public class ValidateCodeProperties {
 
+    /**
+     * 图形验证码
+     */
     private ImageCodeProperties image = new ImageCodeProperties();
 
-    public ImageCodeProperties getImage() {
-        return image;
-    }
+    /**
+     * 短信验证码
+     */
+    private SmsCodeProperties sms = new SmsCodeProperties();
 
-    public void setImage(ImageCodeProperties image) {
-        this.image = image;
-    }
 }
