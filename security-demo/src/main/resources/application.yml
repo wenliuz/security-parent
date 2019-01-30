@@ -16,6 +16,8 @@ security:
       length: 4
       width: 67
       url: /test,/user,/user/*
+    sms:
+      url: /test,/user,/user/*
 
 spring:
   session:

@@ -25,6 +25,7 @@ public class CodeController {
 
     //图形验证码存在session的key值
     public static final String IMAGE_CODE = "image_code";
+    public static final String SMS_CODE = "sms_code";
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -59,7 +60,7 @@ public class CodeController {
     public void imageSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
 
         ValidateCode smsCode = smsCodeGenerator.generate(new ServletWebRequest(request));
-        sessionStrategy.setAttribute(new ServletWebRequest(request), IMAGE_CODE, smsCode);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SMS_CODE, smsCode);
         //从请求获取手机号
         String mobile = ServletRequestUtils.getStringParameter(request,"mobile");
         //发送短信

@@ -2,6 +2,9 @@ package com.wenliuz.config;
 
 import com.wenliuz.authentication.AuthFailHandler;
 import com.wenliuz.authentication.AuthSuccessHandler;
+import com.wenliuz.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.wenliuz.core.authentication.mobile.SmsCodeAuthenticationToken;
+import com.wenliuz.core.authentication.mobile.SmsCodeFilter;
 import com.wenliuz.core.code.ValidateCodeFilter;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private PersistentTokenRepository persistentTokenRepository;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,9 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setSecurityProperties(securityProperties);
         validateCodeFilter.afterPropertiesSet();//设置属性
 
+        SmsCodeFilter smsCodeFilter =  new SmsCodeFilter();
+        smsCodeFilter.setFailureHandler(authFailHandler);
+        smsCodeFilter.setSecurityProperties(securityProperties);
+        smsCodeFilter.afterPropertiesSet();//设置属性
+
 
         //表单验证
-        http
+        http.addFilterBefore(smsCodeFilter,UsernamePasswordAuthenticationFilter.class)
             .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
             .formLogin()
                 //自定义表单页面
@@ -67,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
             .csrf()
-                .disable();
+                .disable()
+            .apply(smsCodeAuthenticationSecurityConfig);
     }
 }
