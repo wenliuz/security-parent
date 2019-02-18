@@ -1,6 +1,7 @@
-package com.wenliuz.core.code;
+package com.wenliuz.core.code.image;
 
 
+import com.wenliuz.core.code.ValidateCodeGenerator;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;

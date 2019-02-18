@@ -1,6 +1,7 @@
 package com.wenliuz.controller;
 
 import com.wenliuz.core.config.SecurityCoreConfig;
+import com.wenliuz.core.constants.SecurityConstant;
 import com.wenliuz.core.model.SimpleResponse;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class BrowserSecurityController {
      * @param response
      * @return
      */
-    @RequestMapping("/auth/require")
+    @RequestMapping(SecurityConstant.UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse authRequire(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SavedRequest savedRequest = requestCache.getRequest(request,response);

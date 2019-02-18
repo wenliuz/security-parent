@@ -1,5 +1,6 @@
 package com.wenliuz.core.code;
 
+import com.wenliuz.core.code.image.ImageCodeGenerator;
 import com.wenliuz.core.code.sms.DefaultSmsCodeSender;
 import com.wenliuz.core.code.sms.SmsCodeSender;
 import com.wenliuz.core.properties.SecurityProperties;

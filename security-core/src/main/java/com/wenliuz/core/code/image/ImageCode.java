@@ -1,4 +1,6 @@
-package com.wenliuz.core.code;
+package com.wenliuz.core.code.image;
+
+import com.wenliuz.core.code.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

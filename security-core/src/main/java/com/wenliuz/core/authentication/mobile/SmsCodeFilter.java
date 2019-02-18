@@ -1,6 +1,5 @@
 package com.wenliuz.core.authentication.mobile;
 
-import com.wenliuz.core.code.ImageCode;
 import com.wenliuz.core.code.ValidateCode;
 import com.wenliuz.core.code.ValidateCodeException;
 import com.wenliuz.core.properties.SecurityProperties;

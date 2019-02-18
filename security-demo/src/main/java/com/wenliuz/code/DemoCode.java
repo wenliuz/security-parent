@@ -1,6 +1,6 @@
 package com.wenliuz.code;
 
-import com.wenliuz.core.code.ImageCode;
+import com.wenliuz.core.code.image.ImageCode;
 import com.wenliuz.core.code.ValidateCodeGenerator;
 import org.springframework.web.context.request.ServletWebRequest;
 
