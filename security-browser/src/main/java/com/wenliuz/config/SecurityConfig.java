@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
@@ -39,6 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
     @Autowired
     private ValidateCodeConfig validateCodeConfig;
+    /*@Autowired
+    private InvalidSessionStrategy invalidSessionStrategy;*/
 
     /**
      * 注入social的配置
@@ -66,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //表单验证
         http
-                //验证码配置
+             //验证码配置
             .apply(validateCodeConfig).and()
                 //social配置，注入filter
             .apply(socialSecurityConfig).and()
@@ -91,11 +94,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
                 .userDetailsService(userDetailsService)
                 .and()
+            //session管理
+            .sessionManagement()
+                //session失效管理策略
+                //.invalidSessionStrategy("/")
+                //同一用户最大session数
+                .maximumSessions(1)
+                .and()
+                .and()
+            //退出管理
+            .logout()
+                .logoutUrl("/signout")
+                //清除cookie
+                .deleteCookies("JSESSIONID")
+                .and()
             .authorizeRequests()
                 //忽略验证
                 .antMatchers(SecurityConstant.UNAUTHENTICATION_URL,
                         securityProperties.getBrowser().getLoginPage(),
-                        //todo 验证码登录url 可加可不加？
+                        //todo 短信登录url 可加可不加？
                         SecurityConstant.LOGIN_URL_MOBILE,
                         SecurityConstant.VALIDATE_CODE + "/*")
                 .permitAll()

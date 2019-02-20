@@ -1,4 +1,4 @@
-package com.wenliuz.config;
+package com.wenliuz.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
