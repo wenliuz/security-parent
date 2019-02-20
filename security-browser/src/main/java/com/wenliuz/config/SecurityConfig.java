@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * Created by wenliu on 2018/10/14.
@@ -39,6 +40,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private ValidateCodeConfig validateCodeConfig;
 
+    /**
+     * 注入social的配置
+     */
+    @Autowired
+    private SpringSocialConfigurer socialSecurityConfig;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
@@ -58,7 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         smsCodeFilter.afterPropertiesSet();//设置属性*/
 
         //表单验证
-        http.apply(validateCodeConfig).and()
+        http
+                //验证码配置
+            .apply(validateCodeConfig).and()
+                //social配置，注入filter
+            .apply(socialSecurityConfig).and()
             /*//添加短信验证码过滤器
             .addFilterBefore(smsCodeFilter,UsernamePasswordAuthenticationFilter.class)
             //添加图形验证码过滤器

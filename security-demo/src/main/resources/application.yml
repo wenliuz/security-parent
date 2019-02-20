@@ -6,6 +6,9 @@
 server:
   port: 9527
   #context-path: /secure
+  #session超时时间 单位秒，默认30分钟
+  session:
+    timeout: 100
 
 security:
   #browser:
@@ -18,6 +21,11 @@ security:
       url: /test,/user,/user/*
     sms:
       url: /test,/user,/user/*
+
+    social:
+      qq:
+        app-id: 1
+        app-Secret: 2
 
 spring:
   session:
