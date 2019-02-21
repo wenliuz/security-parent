@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService, SocialUserDetailsService
         LOGGER.info("表单登录用户名：{}",username);
         String password = passwordEncoder.encode("123456");
         LOGGER.info("登录密码：{}",password);
-        return new User(username,password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        return new User(username,password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
     }
 
     @Override

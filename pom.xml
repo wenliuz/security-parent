@@ -29,6 +29,7 @@
 		<module>security-demo</module>
 		<module>security-core</module>
 		<module>security-browser</module>
+		<module>security-app</module>
 	</modules>
 
 	<dependencyManagement>

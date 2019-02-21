@@ -39,7 +39,7 @@ security:
   #oauth2
   oauth2:
     client:
-      client-id: 1
-      client-secret: 123
+      clientId: 1
+      clientSecret: 123
 
 #debug: true
