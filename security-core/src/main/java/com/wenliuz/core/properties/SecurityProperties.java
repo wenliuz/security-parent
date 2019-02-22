@@ -23,6 +23,11 @@ public class SecurityProperties {
      */
     private SocialProperties social = new SocialProperties();
 
+    /**
+     * oauth2属性
+     */
+    private AuthProperties auth = new AuthProperties();
+
 
     public BrowserProperties getBrowser() {
         return browser;
@@ -46,5 +51,13 @@ public class SecurityProperties {
 
     public void setSocial(SocialProperties social) {
         this.social = social;
+    }
+
+    public AuthProperties getAuth() {
+        return auth;
+    }
+
+    public void setAuth(AuthProperties auth) {
+        this.auth = auth;
     }
 }

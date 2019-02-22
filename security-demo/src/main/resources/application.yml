@@ -20,6 +20,13 @@ spring:
     username: root
     password: root
 
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+
+
+#自定义属性
 security:
   #browser:
    #loginPage: /demo-login.html
@@ -36,6 +43,7 @@ security:
       qq:
         app-id: 1
         app-Secret: 2
+
   #oauth2
   oauth2:
     client:

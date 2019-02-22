@@ -37,7 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 //验证码配置
-                .apply(validateCodeConfig).and()
+                //.apply(validateCodeConfig).and()
                 //social配置，注入filter
                 //添加配置项
                 .apply(smsCodeAuthenticationSecurityConfig)
