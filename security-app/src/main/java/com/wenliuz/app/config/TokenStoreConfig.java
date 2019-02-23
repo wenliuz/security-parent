@@ -1,7 +1,9 @@
 package com.wenliuz.app.config;
 
+import com.wenliuz.app.jwt.JwtTokenEnhancer;
 import com.wenliuz.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,10 +49,11 @@ public class TokenStoreConfig {
             return jwtAccessTokenConverter;
         }
 
-        /*@Bean
-        public TokenEnhancer tokenEnhancer() {
-
-        }*/
+        @Bean
+        @ConditionalOnMissingBean(name = "jwtTokenEnhancer")
+        public TokenEnhancer jwtTokenEnhancer() {
+            return new JwtTokenEnhancer();
+        }
 
     }
 
